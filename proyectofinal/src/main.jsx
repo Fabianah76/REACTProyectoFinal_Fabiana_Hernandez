@@ -1,6 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import React from "react";
+import ReactDOM from "react-dom/client";
+
 import App from './App'
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "./contexts/ItemsContext";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -23,11 +28,17 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
+<React.StrictMode>
+    <Provider>
+      <App />
+    </Provider>
+  </React.StrictMode>
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App/>
-  </StrictMode>,
-)
+
+// createRoot(document.getElementById('root')).render(
+//   <StrictMode>
+//     <App/>
+//   </StrictMode>,
+// )
 
 

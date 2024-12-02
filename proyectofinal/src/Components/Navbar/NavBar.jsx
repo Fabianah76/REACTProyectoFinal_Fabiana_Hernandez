@@ -2,6 +2,7 @@ import {Link, Outlet } from "react-router-dom"
 import { FiShoppingCart } from "react-icons/fi";
 import Stack from 'react-bootstrap/Stack';
 import "./NavBar.css";
+import CartWidget from "../CartWidget";
 
 function NavBar() {
   return (
@@ -31,8 +32,7 @@ function NavBar() {
                 
             </ul>
             <div className='carrito'> 
-                <FiShoppingCart />
-                <span className='badge'>5</span>
+                <CartWidget />
             </div>
         
         </div>
