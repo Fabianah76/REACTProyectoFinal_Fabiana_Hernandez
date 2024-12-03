@@ -4,19 +4,16 @@ import { useContext } from "react";
 import { ItemsContext } from "../contexts/ItemsContext";
 
 export const CartWidget = () => {
-  const { Items } = useContext(ItemsContext);
-
-  const totalItems = Items.reduce((acc, item) => acc + item.quantity, 0);
+  const { items } = useContext(ItemsContext); 
+  const totalItems = items.reduce((acc, item) => acc + item.quantity, 0); 
 
   return (
     <>
       <Link to="/checkout">
-        <img
-          className="carrito"><FiShoppingCart />
-        </img> 
-          
+        <FiShoppingCart />
         {totalItems > 0 && <span>{totalItems}</span>}
       </Link>
+      
     </>
   );
 };

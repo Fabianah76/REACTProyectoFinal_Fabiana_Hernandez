@@ -5,7 +5,6 @@ import ItemListContainer from './Components/ItemListContainer/ItemListContainer'
 import ItemDetailContainer from './Components/ItemDetailContainer/ItemDetailContainer';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoPage from './Paginas/NoPage';
-import {doc,getDoc,getFirestore} from "firebase/firestore";
 import Checkout from "./Components/Checkout";
 import { Provider } from './contexts/ItemsContext';
 import {getFirestore,getDocs,collection,query,where} from "firebase/firestore";
@@ -13,22 +12,22 @@ import {getFirestore,getDocs,collection,query,where} from "firebase/firestore";
 
 
 function App() {
-  useEffect(() => {
-    const db = getFirestore();
+  // useEffect(() => {
+  //   const db = getFirestore();
 
-    const q = query(
-      collection(db, "Items"),
-      where("category")
-    );
+  //   const q = query(
+  //     collection(db, "Items"),
+  //     where("category", '==', 'Tops')
+  //   );
 
-    getDocs(q).then((snapshot) => {
-      if (snapshot.size === 0);
-      else
-        snapshot.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        });
-    });
-  });
+  //   getDocs(q).then((snapshot) => {
+  //     if (snapshot.size === 0);
+  //     else
+  //       snapshot.docs.map((doc) => {
+  //         return { id: doc.id, ...doc.data() };
+  //       });
+  //   });
+  // });
 
   return (
     <div>

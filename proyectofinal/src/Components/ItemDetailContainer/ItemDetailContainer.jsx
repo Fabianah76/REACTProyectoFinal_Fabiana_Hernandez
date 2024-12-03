@@ -3,8 +3,10 @@ import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { ItemCount } from "./ItemCount";
-import { ItemsContext } from "../contexts/ItemsContext";
+import { ItemCount } from "../ItemCount"; 
+import { ItemsContext } from "../../contexts/ItemsContext"; 
+
+
 
 const ItemDetailContainer = () => {
   const { addItem } = useContext(ItemsContext);

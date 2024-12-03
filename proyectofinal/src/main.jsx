@@ -28,11 +28,13 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
-<React.StrictMode>
+createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <Provider>
       <App />
     </Provider>
   </React.StrictMode>
+)
 
 
 // createRoot(document.getElementById('root')).render(
