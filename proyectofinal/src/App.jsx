@@ -12,23 +12,6 @@ import {getFirestore,getDocs,collection,query,where} from "firebase/firestore";
 
 
 function App() {
-  // useEffect(() => {
-  //   const db = getFirestore();
-
-  //   const q = query(
-  //     collection(db, "Items"),
-  //     where("category", '==', 'Tops')
-  //   );
-
-  //   getDocs(q).then((snapshot) => {
-  //     if (snapshot.size === 0);
-  //     else
-  //       snapshot.docs.map((doc) => {
-  //         return { id: doc.id, ...doc.data() };
-  //       });
-  //   });
-  // });
-
   return (
     <div>
       <Provider>
@@ -39,9 +22,9 @@ function App() {
         
             <Route path="/" element={<ItemListContainer saludo="Bienvenida a Poch." />} />
 
-            <Route path="/category/:idCategory" element={<ItemListContainer />} />
+            <Route path="/category/:id" element={<ItemListContainer />} />
 
-            <Route path="/detail/:idProduct" element={<ItemDetailContainer />} />
+            <Route path="/detail/:id" element={<ItemDetailContainer />} />
 
             <Route path="/checkout" element={<Checkout />} />
         

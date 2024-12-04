@@ -7,11 +7,10 @@ import { ItemCount } from "../ItemCount";
 import { ItemsContext } from "../../contexts/ItemsContext"; 
 
 
-
 const ItemDetailContainer = () => {
   const { addItem } = useContext(ItemsContext);
 
-  const [Items, setItems] = useState(null);
+  const [items, setItems] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -32,58 +31,33 @@ const ItemDetailContainer = () => {
   }, [id]);
 
   const onAdd = (count) => {
-    Swal.fire("Guardado en el carrito!");
-    addItem({ ...Items, quantity: count });
+    alert("Guardado en el carrito!");
+    addItem({ ...items, quantity: count });
   };
 
   if (loading) {
     return <h5>Loading...</h5>;
   }
 
-  if (!Items) {
+  if (!items) {
     return <h5>Item not found</h5>;
   }
 
   return (
     <Container className="mt-4">
-      <img src={Items.image} style={{ width: "24rem", marginBottom: "1rem" }} />
+      <img src={items.image} style={{ width: "24rem", marginBottom: "1rem" }} />
       <h3>
-        {Items.name}
-        {value.Items.length}
+        {items.name}
+        {value.items.length}
       </h3>
-      <p>{Items.category}</p>
-      <p>{Items.stock}</p> 
-      <p>{Items.description}</p>
-      <p>{Items.price}</p>
-      <ItemCount stock={Items.stock} onAdd={onAdd} />
+      <p>{items.category}</p>
+      <p>{items.stock}</p> 
+      <p>{items.description}</p>
+      <p>{items.price}</p>
+      <ItemCount stock={items.stock} onAdd={onAdd} />
     </Container>
   );
 };
 
 export default ItemDetailContainer;
 
-
-// import { useState, useEffect } from "react"
-// import getProducts from "../../data/getProducts"
-// import ItemDetail from "./ItemDetail"
-// import { useParams } from "react-router-dom"
-
-// const ItemDetailContainer = () => {
-//   const [product, setProduct] = useState({})
-
-//   const { idProduct } = useParams()
-
-//   useEffect(()=>{
-//     getProducts
-//       .then((respuesta)=> {
-//         const newProduct = respuesta.find((product)=> product.id == idProduct )
-//         setProduct(newProduct)
-//       })
-//       .catch((error)=> console.log(error))
-//   }, [idProduct])
-
-//   return (
-//     <ItemDetail product={product} />
-//   )
-// }
-// export default ItemDetailContainer

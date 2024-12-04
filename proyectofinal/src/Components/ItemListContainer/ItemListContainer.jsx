@@ -14,6 +14,7 @@ const ItemListContainer = () => {
   const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
+  console.log(id)
 
   useEffect(() => {
     const db = getFirestore();
@@ -21,11 +22,13 @@ const ItemListContainer = () => {
     const refCollection = !id
       ? collection(db, "Items")
       : query(collection(db, "Items"), where("category", "==", id));
-
+      console.log (refCollection)
     getDocs(refCollection)
       .then((snapshot) => {
+        console.log (snapshot)
         setItems(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       })
+      .catch((error) => console.log (error))
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -36,40 +39,3 @@ export default ItemListContainer;
 
 
 
-
-// import { useEffect, useState } from "react";
-// import ItemList from "./ItemList";
-// import getProducts from "../../data/getProducts";
-// import { useParams } from "react-router-dom"
-// import "./itemListContainer.css"
-
-// const ItemListContainer = ({ saludo }) => {
-//   const [products, setProducts] = useState([]);
-
-//   const { idCategory } = useParams()
-
-//   useEffect(() => {
-//     getProducts
-//       .then((respuesta) => {
-//         if(idCategory){
-//           //filtrar los productos
-//           const newProducts = respuesta.filter((producto)=> producto.category.toLowerCase() === idCategory)
-          
-//           setProducts(newProducts)
-//         }else{
-//           //devolver todos los productos
-//           setProducts(respuesta)
-//         }
-//       })
-//       .catch((error) => console.log(error))
-//     //   .finally(() => console.log("Finalizo la promesa"));
-//   }, [idCategory]);
-
-//   return (
-//     <div className="item-list-container">
-//       <h2 className="title-items">{saludo}</h2>
-//       <ItemList products={products} />
-//     </div>
-//   );
-// };
-// export default ItemListContainer;
