@@ -58,7 +58,7 @@ export const Checkout = () => {
   return (
     <Container>
       <Row>
-        <Col md={8}>
+        <Col md={12}>
           <Card className="mb-4">
             <Card.Header>Resumen de la Compra</Card.Header>
             <Card.Body>
@@ -68,10 +68,10 @@ export const Checkout = () => {
               <hr />
               {items?.map((i) => (
                 <Row key={i.id} className="mb-3">
-                  <Col md={4}>
+                  <Col md={6}>
                     <img src={i.img} alt="producto" className="img-fluid" />
                   </Col>
-                  <Col md={8}>
+                  <Col md={12}>
                     <h5>{i.title}</h5>
                     <p>Cantidad: {i.quantity}</p>
                     <p>Precio unitario: ${Number(i.price)}</p>
@@ -86,7 +86,7 @@ export const Checkout = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={4}>
+        <Col md={12}>
           <Card>
             <Card.Header>Datos del Comprador</Card.Header>
             <Card.Body>

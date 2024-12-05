@@ -10,7 +10,9 @@ export const CartWidget = () => {
   return (
     <>
       <Link to="/checkout">
-        <FiShoppingCart />
+        <FiShoppingCart
+        style={{ width: "30px", height: "auto" }}
+        />
         {totalItems > 0 && <span>{totalItems}</span>}
       </Link>
       
