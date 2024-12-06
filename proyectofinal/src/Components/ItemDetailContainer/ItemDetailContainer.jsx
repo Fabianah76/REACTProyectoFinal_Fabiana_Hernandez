@@ -32,10 +32,6 @@ const ItemDetailContainer = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
-  // const onAdd = (count) => {
-  //   Swal.fire("Guardado en el carrito!");
-  //   addItem({ ...items, quantity: count });
-  // };
   const onAdd = (count) => {
     alert("Guardado en el carrito!");
     addItem({ ...items, quantity: count });

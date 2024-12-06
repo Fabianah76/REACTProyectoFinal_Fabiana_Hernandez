@@ -68,7 +68,7 @@ export const Checkout = () => {
               <hr />
               {items?.map((i) => (
                 <Row key={i.id} className="mb-3">
-                  <Col md={6}>
+                  <Col md={4}>
                     <img src={i.img} alt="producto" className="img-fluid" />
                   </Col>
                   <Col md={12}>
