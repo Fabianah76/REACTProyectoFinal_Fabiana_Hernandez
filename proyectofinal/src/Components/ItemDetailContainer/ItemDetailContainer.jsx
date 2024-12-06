@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { ItemCount } from "../ItemCount"; 
 import { ItemsContext } from "../../contexts/ItemsContext"; 
+// import {Swal} from "sweetalert2";
+
 
 
 const ItemDetailContainer = () => {
@@ -30,6 +32,10 @@ const ItemDetailContainer = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
+  // const onAdd = (count) => {
+  //   Swal.fire("Guardado en el carrito!");
+  //   addItem({ ...items, quantity: count });
+  // };
   const onAdd = (count) => {
     alert("Guardado en el carrito!");
     addItem({ ...items, quantity: count });

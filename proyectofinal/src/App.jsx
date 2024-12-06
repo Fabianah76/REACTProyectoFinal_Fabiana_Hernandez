@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import "./App.css";
 import NavBar from './Components/Navbar/NavBar';
 import ItemListContainer from './Components/ItemListContainer/ItemListContainer';
@@ -7,11 +7,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoPage from './Paginas/NoPage';
 import Checkout from "./Components/Checkout";
 import { Provider } from './contexts/ItemsContext';
-import {getFirestore,getDocs,collection,query,where} from "firebase/firestore";
+
 
 
 
 function App() {
+  
+  const [count, setCount] = useState(0)
+
   return (
     <div>
       <Provider>
