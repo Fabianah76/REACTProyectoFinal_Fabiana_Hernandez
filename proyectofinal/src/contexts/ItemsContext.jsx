@@ -22,6 +22,17 @@ export const Provider = ({ children }) => {
     }
   };
 
+  const updateQuantity = (id, newQuantity) => {
+    if (newQuantity < 1) return; // No permitas cantidades menores a 1
+  
+    const updatedItems = items.map((item) =>
+      item.id === id ? { ...item, quantity: newQuantity } : item
+    );
+  
+    setItems(updatedItems);
+  };
+
+
   const reset = () => {
     setItems([]);
   };
@@ -34,8 +45,9 @@ export const Provider = ({ children }) => {
   console.log(items);
 
   return (
-    <ItemsContext.Provider value={{ items, addItem, reset, removeItems }}>
-      {children}
+    <ItemsContext.Provider value={{ items, addItem, reset, removeItems, updateQuantity }}>
+  {children}
     </ItemsContext.Provider>
+    
   );
 };

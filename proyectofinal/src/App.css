@@ -5,3 +5,8 @@
   text-align: center;
 }
 
+.checkout-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}

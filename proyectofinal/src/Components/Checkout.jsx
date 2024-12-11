@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { ItemsContext } from "../contexts/ItemsContext";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { Form, Button, Card, Row, Col, Alert } from "react-bootstrap";
+import "./Checkout.css"
 
 const initialValues = {
   phone: "",
@@ -12,7 +13,7 @@ const initialValues = {
 
 export const Checkout = () => {
   const [buyer, setBuyer] = useState(initialValues);
-  const { items, reset, removeItems } = useContext(ItemsContext);
+  const { items, reset, removeItems, updateQuantity } = useContext(ItemsContext);
   const [orderSuccess, setOrderSuccess] = useState(null);
 
   const total = items.reduce(
@@ -44,7 +45,7 @@ export const Checkout = () => {
 
         setTimeout(() => {
           reset();
-          setBuyer("initialValues");
+          setBuyer(initialValues);
         }, 3000);
       }
     } catch (error) {
@@ -57,82 +58,93 @@ export const Checkout = () => {
 
   return (
     <Container>
-      <Row>
-        <Col md={12}>
-          <Card className="mb-4">
-            <Card.Header>Resumen de la Compra</Card.Header>
-            <Card.Body>
-              <button type="button" className="btn btn-primary" onClick={reset}>
-                Vaciar Carrito
-              </button>
-              <hr />
-              {items?.map((i) => (
-                <Row key={i.id} className="mb-3">
-                  <Col md={4}>
-                    <img src={i.img} alt="producto" className="img-fluid" />
-                  </Col>
-                  <Col md={12}>
-                    <h5>{i.title}</h5>
-                    <p>Cantidad: {i.quantity}</p>
-                    <p>Precio unitario: ${Number(i.price)}</p>
-                    <p>Total: ${Number(i.price) * i.quantity}</p>
-                    <Button variant="danger" onClick={() => removeItems(i.id)}>
-                      Eliminar
-                    </Button>
-                  </Col>
-                </Row>
-              ))}
-              <h4>Total de la orden: ${total}</h4>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={12}>
-          <Card>
-            <Card.Header>Datos del Comprador</Card.Header>
-            <Card.Body>
-              <Form>
-                <Form.Group className="mb-3">
-                  <Form.Label>Nombre</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Ingrese su nombre"
-                    name="name"
-                    value={buyer.name}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Ingrese su email"
-                    name="email"
-                    value={buyer.email}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Teléfono</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Ingrese su teléfono"
-                    name="phone"
-                    value={buyer.phone}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
+      <Row className="checkout-container">
+  <Col md={6}>
+    <Card className="mb-2">
+      <Card.Header>Resumen de la Compra</Card.Header>
+      <Card.Body>
+        <button type="button" className="btn btn-primary" onClick={reset}>
+          Vaciar Carrito
+        </button>
+        <hr />
+        {items?.map((i) => (
+          <Row key={i.id} className="mb-3">
+            <Col md={2}>
+              <img src={i.image} alt="producto" className="img-fluid" />
+            </Col>
+            <Col md={8}>
+              <h5>{i.title}</h5>
+              <p>Precio unitario: ${Number(i.price)}</p>
+              <div className="d-flex align-items-center">
                 <Button
-                  variant="primary"
-                  onClick={handleOrder}
-                  className="w-100"
+                  variant="secondary"
+                  onClick={() => updateQuantity(i.id, i.quantity - 1)}
                 >
-                  Comprar
+                  -
                 </Button>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+                <span className="mx-2">{i.quantity}</span>
+                <Button
+                  variant="secondary"
+                  onClick={() => updateQuantity(i.id, i.quantity + 1)}
+                >
+                  +
+                </Button>
+              </div>
+              <p>Total: ${Number(i.price) * i.quantity}</p>
+              <Button variant="danger" onClick={() => removeItems(i.id)}>
+                Eliminar
+              </Button>
+            </Col>
+          </Row>
+        ))}
+        <h4>Total de la orden: ${total}</h4>
+      </Card.Body>
+    </Card>
+  </Col>
+  <Col md={6}>
+    <Card>
+      <Card.Header>Datos del Comprador</Card.Header>
+      <Card.Body>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Ingrese su nombre"
+              name="name"
+              value={buyer.name}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Ingrese su email"
+              name="email"
+              value={buyer.email}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Teléfono</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Ingrese su teléfono"
+              name="phone"
+              value={buyer.phone}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Button variant="primary" onClick={handleOrder} className="w-100">
+            Comprar
+          </Button>
+        </Form>
+      </Card.Body>
+    </Card>
+  </Col>
+</Row>
+
       {orderSuccess && (
         <Alert variant="success" className="mt-4">
           {orderSuccess}
@@ -143,3 +155,4 @@ export const Checkout = () => {
 };
 
 export default Checkout;
+
